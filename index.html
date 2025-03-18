@@ -2,8 +2,8 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPhone 16 Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iPhone 16 Pro Mockup</title>
     <style>
         * {
             margin: 0;
@@ -12,31 +12,41 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
         
+        :root {
+            --border-outer: #A8E6CF;
+            --border-inner: #B8F2D8;
+            --dynamic-island-width: min(120px, 32vw);
+            --icon-size: min(60px, 16vw);
+            --icon-font-size: min(24px, 5vw);
+        }
+        
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             background-color: #f5f5f7;
+            padding: 20px;
         }
         
         .iphone-container {
             position: relative;
-            width: 375px;
-            height: 812px;
+            width: min(375px, 94vw);
+            height: min(812px, 90vh);
+            aspect-ratio: 375/812;
             background-color: #000;
-            border-radius: 55px;
+            border-radius: min(55px, 12vw);
             overflow: hidden;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            border: 8px solid #A8E6CF; /* Pastel green outer border */
-            padding: 4px; /* Space for second border */
+            border: min(8px, 2vw) solid var(--border-outer);
+            padding: min(4px, 1vw);
         }
         
         .iphone-inner {
             width: 100%;
             height: 100%;
-            border: 4px solid #B8F2D8; /* Lighter pastel green inner border */
-            border-radius: 48px;
+            border: min(4px, 1vw) solid var(--border-inner);
+            border-radius: min(48px, 10vw);
             overflow: hidden;
             position: relative;
         }
@@ -49,46 +59,32 @@
             overflow: hidden;
         }
         
-        .notch {
-            position: absolute;
-            width: 160px;
-            height: 35px;
-            background-color: #000;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-bottom-left-radius: 18px;
-            border-bottom-right-radius: 18px;
-            z-index: 10;
-        }
-        
         .dynamic-island {
             position: absolute;
-            width: 120px;
-            height: 35px;
+            width: var(--dynamic-island-width);
+            height: calc(var(--dynamic-island-width) * 0.3);
             background-color: #000;
-            top: 12px;
+            top: min(12px, 3vw);
             left: 50%;
             transform: translateX(-50%);
-            border-radius: 20px;
+            border-radius: calc(var(--dynamic-island-width) * 0.17);
             z-index: 9;
         }
         
-        /* Camera module */
         .camera-module {
             position: absolute;
-            top: 12px;
-            right: 25px;
-            width: 50px;
-            height: 50px;
+            top: min(12px, 3vw);
+            right: min(25px, 6vw);
+            width: min(50px, 14vw);
+            height: min(50px, 14vw);
             background-color: #000;
-            border-radius: 12px;
+            border-radius: min(12px, 3vw);
             z-index: 8;
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            padding: 5px;
-            gap: 3px;
+            padding: min(5px, 1.5vw);
+            gap: min(3px, 1vw);
             border: 1px solid #2a2a2a;
         }
         
@@ -112,19 +108,19 @@
         
         .status-bar {
             position: absolute;
-            top: 15px;
+            top: min(15px, 4vw);
             left: 0;
             width: 100%;
-            padding: 0 25px;
+            padding: 0 min(25px, 6vw);
             display: flex;
             justify-content: space-between;
             color: white;
-            font-size: 14px;
+            font-size: min(14px, 4vw);
             z-index: 8;
         }
         
         .time {
-            margin-left: 15px;
+            margin-left: min(15px, 4vw);
         }
         
         .battery {
@@ -133,8 +129,8 @@
         }
         
         .battery-icon {
-            width: 25px;
-            height: 12px;
+            width: min(25px, 6vw);
+            height: min(12px, 3vw);
             border: 1px solid white;
             border-radius: 3px;
             margin-left: 5px;
@@ -144,29 +140,36 @@
         .battery-icon:after {
             content: '';
             position: absolute;
-            width: 2px;
-            height: 4px;
+            width: min(2px, 0.6vw);
+            height: min(4px, 1.2vw);
             background-color: white;
-            right: -4px;
+            right: min(-4px, -1vw);
             top: 50%;
             transform: translateY(-50%);
         }
         
         .battery-level {
             position: absolute;
-            width: 65%;
-            height: 8px;
+            height: calc(100% - 2px);
             background-color: #4cd964;
             left: 1px;
             top: 1px;
             border-radius: 1px;
+            transition: width 0.3s, background-color 0.3s;
         }
         
         .app-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-gap: 25px;
-            padding: 75px 20px 110px;
+            grid-gap: min(25px, 6vw);
+            padding: calc(var(--dynamic-island-width) * 0.7) min(20px, 5vw) min(110px, 25vw);
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+        
+        .app-grid::-webkit-scrollbar {
+            display: none;
         }
         
         .app {
@@ -177,14 +180,14 @@
         }
         
         .app-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
+            width: var(--icon-size);
+            height: var(--icon-size);
+            border-radius: calc(var(--icon-size) * 0.25);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 5px;
-            font-size: 24px;
+            margin-bottom: min(5px, 1.5vw);
+            font-size: var(--icon-font-size);
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             position: relative;
@@ -201,19 +204,23 @@
         }
         
         .app-name {
-            font-size: 11px;
+            font-size: min(11px, 3vw);
             text-align: center;
+            width: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
         }
         
         .dock {
             position: absolute;
-            bottom: 30px;
+            bottom: min(30px, 7vw);
             left: 50%;
             transform: translateX(-50%);
-            width: 85%;
-            height: 80px;
+            width: min(85%, 320px);
+            height: min(80px, 18vw);
             background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 30px;
+            border-radius: min(30px, 8vw);
             display: flex;
             justify-content: space-evenly;
             align-items: center;
@@ -221,13 +228,13 @@
         }
         
         .dock-app {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
+            width: var(--icon-size);
+            height: var(--icon-size);
+            border-radius: calc(var(--icon-size) * 0.25);
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 24px;
+            font-size: var(--icon-font-size);
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
@@ -237,7 +244,7 @@
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
         }
         
-        /* Camera view when opened */
+        /* Camera view */
         .camera-view {
             position: absolute;
             top: 0;
@@ -259,47 +266,48 @@
         }
         
         .camera-controls {
-            height: 120px;
+            height: min(120px, 25vw);
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 min(20px, 5vw);
         }
         
         .shutter-button {
-            width: 70px;
-            height: 70px;
+            width: min(70px, 18vw);
+            height: min(70px, 18vw);
             border-radius: 50%;
             background-color: #fff;
-            border: 5px solid rgba(255, 255, 255, 0.3);
+            border: min(5px, 1.2vw) solid rgba(255, 255, 255, 0.3);
             cursor: pointer;
         }
         
         .camera-option {
-            width: 40px;
-            height: 40px;
+            width: min(40px, 10vw);
+            height: min(40px, 10vw);
             background-color: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
+            font-size: min(18px, 4.5vw);
         }
         
         .camera-top-controls {
-            height: 60px;
+            height: min(60px, 15vw);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 min(20px, 5vw);
         }
         
         .close-camera {
             color: white;
-            font-size: 18px;
+            font-size: min(18px, 4.5vw);
             background-color: rgba(0, 0, 0, 0.5);
-            width: 30px;
-            height: 30px;
+            width: min(30px, 8vw);
+            height: min(30px, 8vw);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -332,13 +340,13 @@
         .notification::after {
             content: '';
             position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 15px;
-            height: 15px;
+            top: min(-5px, -1.3vw);
+            right: min(-5px, -1.3vw);
+            width: min(15px, 4vw);
+            height: min(15px, 4vw);
             background-color: #FF3B30;
             border-radius: 50%;
-            border: 2px solid #000;
+            border: min(2px, 0.5vw) solid #000;
             animation: pulse 2s infinite;
         }
         
@@ -382,6 +390,11 @@
         .calendar {
             background-color: white;
             color: #ff3b30;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: min(22px, 5.5vw);
         }
         
         .maps {
@@ -398,10 +411,19 @@
         
         .clock {
             background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: min(24px, 6vw);
         }
         
         .app-store {
             background: linear-gradient(to bottom, #30CFD0, #330867);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: min(24px, 6vw);
         }
     </style>
 </head>
@@ -434,8 +456,8 @@
                         <div class="app-name">Mail</div>
                     </div>
                     <div class="app">
-                        <div class="app-icon calendar">
-                            <div id="calendar-date"></div>
+                        <div class="app-icon calendar" id="calendar-icon">
+                            
                         </div>
                         <div class="app-name">Calendar</div>
                     </div>
@@ -459,8 +481,8 @@
                         <div class="app-name">Maps</div>
                     </div>
                     <div class="app">
-                        <div class="app-icon clock">
-                            <div id="clock-icon-face">🕙</div>
+                        <div class="app-icon clock" id="clock-icon">
+                            🕙
                         </div>
                         <div class="app-name">Clock</div>
                     </div>
@@ -551,6 +573,37 @@
             document.getElementById('current-time').textContent = hours + ':' + minutes;
         }
         
+        // Update calendar app icon with current date
+        function updateCalendarIcon() {
+            const now = new Date();
+            const date = now.getDate(); // Gets current day of month
+            document.getElementById('calendar-icon').textContent = date;
+        }
+        
+        // Update clock app icon based on current time
+        function updateClockIcon() {
+            const now = new Date();
+            const hours = now.getHours();
+            
+            // Choose the appropriate clock emoji based on the hour
+            let clockEmoji = '🕙'; // Default
+            
+            if (hours === 1 || hours === 13) clockEmoji = '🕐';
+            else if (hours === 2 || hours === 14) clockEmoji = '🕑';
+            else if (hours === 3 || hours === 15) clockEmoji = '🕒';
+            else if (hours === 4 || hours === 16) clockEmoji = '🕓';
+            else if (hours === 5 || hours === 17) clockEmoji = '🕔';
+            else if (hours === 6 || hours === 18) clockEmoji = '🕕';
+            else if (hours === 7 || hours === 19) clockEmoji = '🕖';
+            else if (hours === 8 || hours === 20) clockEmoji = '🕗';
+            else if (hours === 9 || hours === 21) clockEmoji = '🕘';
+            else if (hours === 10 || hours === 22) clockEmoji = '🕙';
+            else if (hours === 11 || hours === 23) clockEmoji = '🕚';
+            else if (hours === 12 || hours === 0) clockEmoji = '🕛';
+            
+            document.getElementById('clock-icon').textContent = clockEmoji;
+        }
+        
         // Battery management variables
         let batteryLevel = 88;
         let batteryDirection = -1; // -1 for decreasing, 1 for increasing
@@ -574,7 +627,7 @@
             }
         }
         
-        // Update battery level every 10 minutes (600000 ms), but we'll use a shorter interval for demo
+        // Update battery level every 10 minutes
         function startBatterySimulation() {
             // For demonstration purposes, update every 5 seconds instead of 10 minutes
             const updateInterval = 5000; // 5 seconds for demo (would be 600000 for 10 minutes)
@@ -634,44 +687,16 @@
             });
         }
         
-        // Update calendar app icon with current date
-        function updateCalendarIcon() {
-            const now = new Date();
-            const date = now.getDate(); // Gets current day of month
-            document.getElementById('calendar-date').textContent = date;
-        }
-        
-        // Update clock app icon based on current time
-        function updateClockIcon() {
-            const now = new Date();
-            const hours = now.getHours();
-            
-            // Choose the appropriate clock emoji based on the hour
-            let clockEmoji = '🕙'; // Default
-            
-            if (hours === 1 || hours === 13) clockEmoji = '🕐';
-            else if (hours === 2 || hours === 14) clockEmoji = '🕑';
-            else if (hours === 3 || hours === 15) clockEmoji = '🕒';
-            else if (hours === 4 || hours === 16) clockEmoji = '🕓';
-            else if (hours === 5 || hours === 17) clockEmoji = '🕔';
-            else if (hours === 6 || hours === 18) clockEmoji = '🕕';
-            else if (hours === 7 || hours === 19) clockEmoji = '🕖';
-            else if (hours === 8 || hours === 20) clockEmoji = '🕗';
-            else if (hours === 9 || hours === 21) clockEmoji = '🕘';
-            else if (hours === 10 || hours === 22) clockEmoji = '🕙';
-            else if (hours === 11 || hours === 23) clockEmoji = '🕚';
-            else if (hours === 12 || hours === 0) clockEmoji = '🕛';
-            
-            document.getElementById('clock-icon-face').textContent = clockEmoji;
-        }
-        
         // Initialize all functions when the document is ready
         document.addEventListener('DOMContentLoaded', function() {
-            const icons = document.querySelectorAll('.app-icon');
-            
             // Initialize time update
             updateTime();
             setInterval(updateTime, 1000);
+            
+            // Initialize calendar and clock icons
+            updateCalendarIcon();
+            updateClockIcon();
+            setInterval(updateClockIcon, 60000);
             
             // Initialize battery display
             updateBatteryDisplay();
@@ -680,31 +705,24 @@
             // Initialize camera functionality
             setupCamera();
             
-            // Initialize calendar and clock icons
-            updateCalendarIcon();
-            updateClockIcon();
-            setInterval(updateClockIcon, 60000);
-            
-            // Apply animations to specific app icons
-            const cameraIcon = document.querySelector('.camera');
-            if (cameraIcon && cameraIcon !== document.getElementById('camera-icon')) {
-                cameraIcon.style.animation = 'shake 3s infinite';
-            }
-            
+            // Setup animations for app icons
+            const cameraIcon = document.getElementById('camera-icon');
             const settingsIcon = document.querySelector('.settings');
+            
             if (settingsIcon) {
                 settingsIcon.style.animation = 'pulse 2s infinite';
             }
             
             // Add click animations to all app icons
+            const icons = document.querySelectorAll('.app-icon');
             icons.forEach(icon => {
-                icon.addEventListener('click', function() {
-                    if (this.id !== 'camera-icon') { // Don't apply to camera icon since it has its own handling
+                if (icon !== cameraIcon) { // Don't apply to camera icon
+                    icon.addEventListener('click', function() {
                         this.style.animation = 'none';
                         this.offsetHeight; // Trigger reflow
                         this.style.animation = 'pulse 0.5s';
-                    }
-                });
+                    });
+                }
             });
         });
     </script>
