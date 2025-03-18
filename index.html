@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone 16 Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f7;
+        }
+        
+        .iphone-container {
+            position: relative;
+            width: 375px;
+            height: 812px;
+            background-color: #000;
+            border-radius: 55px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border: 8px solid #A8E6CF; /* Pastel green outer border */
+            padding: 4px; /* Space for second border */
+        }
+        
+        .iphone-inner {
+            width: 100%;
+            height: 100%;
+            border: 4px solid #B8F2D8; /* Lighter pastel green inner border */
+            border-radius: 48px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(125deg, #0a0a0a, #1a1a1a);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .notch {
+            position: absolute;
+            width: 160px;
+            height: 35px;
+            background-color: #000;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+            z-index: 10;
+        }
+        
+        .dynamic-island {
+            position: absolute;
+            width: 120px;
+            height: 35px;
+            background-color: #000;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 20px;
+            z-index: 9;
+        }
+        
+        /* Camera module */
+        .camera-module {
+            position: absolute;
+            top: 12px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background-color: #000;
+            border-radius: 12px;
+            z-index: 8;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            padding: 5px;
+            gap: 3px;
+            border: 1px solid #2a2a2a;
+        }
+        
+        .camera-lens {
+            background: radial-gradient(circle at center, #3a3a3a, #1a1a1a);
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .camera-lens:after {
+            content: '';
+            position: absolute;
+            width: 40%;
+            height: 40%;
+            background-color: rgba(80, 180, 255, 0.2);
+            border-radius: 50%;
+            top: 20%;
+            left: 20%;
+        }
+        
+        .status-bar {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            padding: 0 25px;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            font-size: 14px;
+            z-index: 8;
+        }
+        
+        .time {
+            margin-left: 15px;
+        }
+        
+        .battery {
+            display: flex;
+            align-items: center;
+        }
+        
+        .battery-icon {
+            width: 25px;
+            height: 12px;
+            border: 1px solid white;
+            border-radius: 3px;
+            margin-left: 5px;
+            position: relative;
+        }
+        
+        .battery-icon:after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 4px;
+            background-color: white;
+            right: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .battery-level {
+            position: absolute;
+            width: 65%;
+            height: 8px;
+            background-color: #4cd964;
+            left: 1px;
+            top: 1px;
+            border-radius: 1px;
+        }
+        
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 25px;
+            padding: 75px 20px 110px;
+        }
+        
+        .app {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
+        
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .app-icon:active {
+            transform: scale(0.95);
+        }
+        
+        .app-name {
+            font-size: 11px;
+            text-align: center;
+        }
+        
+        .dock {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .dock-app {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .dock-app:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Camera view when opened */
+        .camera-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 999;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .camera-preview {
+            flex: 1;
+            background: linear-gradient(125deg, #1a1a1a, #333333);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .camera-controls {
+            height: 120px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .shutter-button {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+        }
+        
+        .camera-option {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        
+        .camera-top-controls {
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .close-camera {
+            color: white;
+            font-size: 18px;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shake {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-2px, 0) rotate(-2deg); }
+            40% { transform: translate(2px, 0) rotate(2deg); }
+            60% { transform: translate(-2px, 0) rotate(-1deg); }
+            80% { transform: translate(2px, 0) rotate(1deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+        
+        .notification::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 15px;
+            height: 15px;
+            background-color: #FF3B30;
+            border-radius: 50%;
+            border: 2px solid #000;
+            animation: pulse 2s infinite;
+        }
+        
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        /* App icon backgrounds */
+        .phone {
+            background-color: #4cd964;
+        }
+        
+        .safari {
+            background: linear-gradient(120deg, #0076FF, #44AAFF);
+        }
+        
+        .messages {
+            background-color: #57d066;
+        }
+        
+        .music {
+            background: linear-gradient(to bottom, #FC3158, #FA92AD);
+        }
+        
+        .mail {
+            background-color: #1e88e5;
+        }
+        
+        .photos {
+            background: linear-gradient(120deg, #FC466B, #3F5EFB);
+        }
+        
+        .settings {
+            background-color: #8e8e93;
+        }
+        
+        .camera {
+            background-color: #333333;
+        }
+        
+        .calendar {
+            background-color: white;
+            color: #ff3b30;
+        }
+        
+        .maps {
+            background: linear-gradient(120deg, #74ebd5, #ACB6E5);
+        }
+        
+        .weather {
+            background: linear-gradient(to bottom, #47BFFF, #4A91FF);
+        }
+        
+        .notes {
+            background-color: #FFCC00;
+        }
+        
+        .clock {
+            background-color: #000;
+        }
+        
+        .app-store {
+            background: linear-gradient(to bottom, #30CFD0, #330867);
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-container">
+        <div class="iphone-inner">
+            <div class="screen">
+                <div class="dynamic-island"></div>
+                <div class="camera-module">
+                    <div class="camera-lens"></div>
+                    <div class="camera-lens"></div>
+                    <div class="camera-lens"></div>
+                    <div class="camera-lens"></div>
+                </div>
+                <div class="status-bar">
+                    <div class="time" id="current-time">9:41</div>
+                    <div class="battery">
+                        <span id="battery-percentage">88</span>%
+                        <div class="battery-icon">
+                            <div class="battery-level" id="battery-level-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="app-grid">
+                    <div class="app">
+                        <div class="app-icon mail notification">
+                            ✉️
+                        </div>
+                        <div class="app-name">Mail</div>
+                    </div>
+                    <div class="app">
+                        <div class="app-icon calendar">
+                            <div id="calendar-date"></div>
+                        </div>
+                        <div class="app-name">Calendar</div>
+                    </div>
+                    <div class="app">
+                        <div class="app-icon photos">
+                            🌈
+                        </div>
+                        <div class="app-name">Photos</div>
+                    </div>
+                    <div class="app">
+                        <div class="app-icon camera" id="camera-icon">
+                            📷
+                        </div>
+                        <div class="app-name">Camera</div>
+                    </div>
+                    
+                    <div class="app">
+                        <div class="app-icon maps">
+                            🗺️
+                        </div>
+                        <div class="app-name">Maps</div>
+                    </div>
+                    <div class="app">
+                        <div class="app-icon clock">
+                            <div id="clock-icon-face">🕙</div>
+                        </div>
+                        <div class="app-name">Clock</div>
+                    </div>
+                    <div class="app">
+                        <div class="app-icon weather">
+                            ☀️
+                        </div>
+                        <div class="app-name">Weather</div>
+                    </div>
+                    <div class="app">
+                        <div class="app-icon notes">
+                            📝
+                        </div>
+                        <div class="app-name">Notes</div>
+                    </div>
+                    
+                    <div class="app">
+                        <div class="app-icon app-store">
+                            A
+                        </div>
+                        <div class="app-name">App Store</div>
+                    </div>
+                    <div class="app">
+                        <div class="app-icon settings">
+                            ⚙️
+                        </div>
+                        <div class="app-name">Settings</div>
+                    </div>
+                    <div class="app">
+                        <div class="app-icon music">
+                            🎵
+                        </div>
+                        <div class="app-name">Music</div>
+                    </div>
+                    <div class="app">
+                        <div class="app-icon safari">
+                            🧭
+                        </div>
+                        <div class="app-name">Safari</div>
+                    </div>
+                </div>
+                
+                <div class="dock">
+                    <div class="dock-app phone">
+                        📞
+                    </div>
+                    <div class="dock-app messages bounce">
+                        💬
+                    </div>
+                    <div class="dock-app safari">
+                        🧭
+                    </div>
+                    <div class="dock-app music">
+                        🎵
+                    </div>
+                </div>
+                
+                <div class="camera-view" id="camera-view">
+                    <div class="camera-top-controls">
+                        <div class="close-camera" id="close-camera">✕</div>
+                        <div class="camera-option">⚙️</div>
+                    </div>
+                    <div class="camera-preview">
+                        <!-- Camera feed would go here in a real app -->
+                    </div>
+                    <div class="camera-controls">
+                        <div class="camera-option">🔄</div>
+                        <div class="shutter-button"></div>
+                        <div class="camera-option">🖼️</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update current time in real-time
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            
+            // Format time to always show two digits
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            
+            // Update the time element
+            document.getElementById('current-time').textContent = hours + ':' + minutes;
+        }
+        
+        // Battery management variables
+        let batteryLevel = 88;
+        let batteryDirection = -1; // -1 for decreasing, 1 for increasing
+        let batteryUpdateInterval;
+        
+        // Update battery level display
+        function updateBatteryDisplay() {
+            const batteryPercentage = document.getElementById('battery-percentage');
+            const batteryLevelIndicator = document.getElementById('battery-level-indicator');
+            
+            batteryPercentage.textContent = batteryLevel;
+            batteryLevelIndicator.style.width = batteryLevel + '%';
+            
+            // Change color based on battery level
+            if (batteryLevel < 20) {
+                batteryLevelIndicator.style.backgroundColor = '#FF3B30';
+            } else if (batteryLevel < 50) {
+                batteryLevelIndicator.style.backgroundColor = '#FFCC00';
+            } else {
+                batteryLevelIndicator.style.backgroundColor = '#4cd964';
+            }
+        }
+        
+        // Update battery level every 10 minutes (600000 ms), but we'll use a shorter interval for demo
+        function startBatterySimulation() {
+            // For demonstration purposes, update every 5 seconds instead of 10 minutes
+            const updateInterval = 5000; // 5 seconds for demo (would be 600000 for 10 minutes)
+            
+            batteryUpdateInterval = setInterval(function() {
+                if (batteryDirection === -1) {
+                    // Decreasing battery
+                    batteryLevel -= 5;
+                    
+                    // When battery gets below 30%, start charging
+                    if (batteryLevel < 30) {
+                        batteryDirection = 1;
+                    }
+                } else {
+                    // Increasing battery (charging)
+                    batteryLevel += 5;
+                    
+                    // When battery reaches 100%, stay there for 10 minutes then start discharging
+                    if (batteryLevel >= 100) {
+                        batteryLevel = 100;
+                        
+                        // Clear the current interval
+                        clearInterval(batteryUpdateInterval);
+                        
+                        // Wait for 10 minutes (or 10 seconds for demo) and then start discharging
+                        setTimeout(function() {
+                            batteryDirection = -1;
+                            startBatterySimulation();
+                        }, 10000); // 10 seconds for demo (would be 600000 for 10 minutes)
+                        
+                        return;
+                    }
+                }
+                
+                // Ensure battery level stays within bounds
+                batteryLevel = Math.max(5, Math.min(100, batteryLevel));
+                
+                // Update the display
+                updateBatteryDisplay();
+            }, updateInterval);
+        }
+        
+        // Camera functionality
+        function setupCamera() {
+            const cameraIcon = document.getElementById('camera-icon');
+            const cameraView = document.getElementById('camera-view');
+            const closeCamera = document.getElementById('close-camera');
+            
+            // Open camera when camera icon is clicked
+            cameraIcon.addEventListener('click', function() {
+                cameraView.style.display = 'flex';
+            });
+            
+            // Close camera when close button is clicked
+            closeCamera.addEventListener('click', function() {
+                cameraView.style.display = 'none';
+            });
+        }
+        
+        // Update calendar app icon with current date
+        function updateCalendarIcon() {
+            const now = new Date();
+            const date = now.getDate(); // Gets current day of month
+            document.getElementById('calendar-date').textContent = date;
+        }
+        
+        // Update clock app icon based on current time
+        function updateClockIcon() {
+            const now = new Date();
+            const hours = now.getHours();
+            
+            // Choose the appropriate clock emoji based on the hour
+            let clockEmoji = '🕙'; // Default
+            
+            if (hours === 1 || hours === 13) clockEmoji = '🕐';
+            else if (hours === 2 || hours === 14) clockEmoji = '🕑';
+            else if (hours === 3 || hours === 15) clockEmoji = '🕒';
+            else if (hours === 4 || hours === 16) clockEmoji = '🕓';
+            else if (hours === 5 || hours === 17) clockEmoji = '🕔';
+            else if (hours === 6 || hours === 18) clockEmoji = '🕕';
+            else if (hours === 7 || hours === 19) clockEmoji = '🕖';
+            else if (hours === 8 || hours === 20) clockEmoji = '🕗';
+            else if (hours === 9 || hours === 21) clockEmoji = '🕘';
+            else if (hours === 10 || hours === 22) clockEmoji = '🕙';
+            else if (hours === 11 || hours === 23) clockEmoji = '🕚';
+            else if (hours === 12 || hours === 0) clockEmoji = '🕛';
+            
+            document.getElementById('clock-icon-face').textContent = clockEmoji;
+        }
+        
+        // Initialize all functions when the document is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const icons = document.querySelectorAll('.app-icon');
+            
+            // Initialize time update
+            updateTime();
+            setInterval(updateTime, 1000);
+            
+            // Initialize battery display
+            updateBatteryDisplay();
+            startBatterySimulation();
+            
+            // Initialize camera functionality
+            setupCamera();
+            
+            // Initialize calendar and clock icons
+            updateCalendarIcon();
+            updateClockIcon();
+            setInterval(updateClockIcon, 60000);
+            
+            // Apply animations to specific app icons
+            const cameraIcon = document.querySelector('.camera');
+            if (cameraIcon && cameraIcon !== document.getElementById('camera-icon')) {
+                cameraIcon.style.animation = 'shake 3s infinite';
+            }
+            
+            const settingsIcon = document.querySelector('.settings');
+            if (settingsIcon) {
+                settingsIcon.style.animation = 'pulse 2s infinite';
+            }
+            
+            // Add click animations to all app icons
+            icons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    if (this.id !== 'camera-icon') { // Don't apply to camera icon since it has its own handling
+                        this.style.animation = 'none';
+                        this.offsetHeight; // Trigger reflow
+                        this.style.animation = 'pulse 0.5s';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
