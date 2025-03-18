@@ -158,6 +158,12 @@
             transition: width 0.3s, background-color 0.3s;
         }
         
+        .charging-icon {
+            display: none;
+            margin-left: 5px;
+            font-size: min(14px, 4vw);
+        }
+        
         .app-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -442,6 +448,7 @@
                     <div class="time" id="current-time">9:41</div>
                     <div class="battery">
                         <span id="battery-percentage">88</span>%
+                        <div class="charging-icon" id="charging-icon">⚡</div>
                         <div class="battery-icon">
                             <div class="battery-level" id="battery-level-indicator"></div>
                         </div>
@@ -613,9 +620,18 @@
         function updateBatteryDisplay() {
             const batteryPercentage = document.getElementById('battery-percentage');
             const batteryLevelIndicator = document.getElementById('battery-level-indicator');
+            const chargingIcon = document.getElementById('charging-icon');
             
+            // Update percentage text and level indicator
             batteryPercentage.textContent = batteryLevel;
             batteryLevelIndicator.style.width = batteryLevel + '%';
+            
+            // Show/hide charging icon based on battery direction
+            if (batteryDirection === 1) {
+                chargingIcon.style.display = 'inline';
+            } else {
+                chargingIcon.style.display = 'none';
+            }
             
             // Change color based on battery level
             if (batteryLevel < 20) {
@@ -640,6 +656,8 @@
                     // When battery gets below 30%, start charging
                     if (batteryLevel < 30) {
                         batteryDirection = 1;
+                        // Update display immediately when charging starts
+                        updateBatteryDisplay();
                     }
                 } else {
                     // Increasing battery (charging)
@@ -648,13 +666,16 @@
                     // When battery reaches 100%, stay there for 10 minutes then start discharging
                     if (batteryLevel >= 100) {
                         batteryLevel = 100;
+                        batteryDirection = -1; // Stop charging
+                        
+                        // Update display immediately to remove charging icon
+                        updateBatteryDisplay();
                         
                         // Clear the current interval
                         clearInterval(batteryUpdateInterval);
                         
                         // Wait for 10 minutes (or 10 seconds for demo) and then start discharging
                         setTimeout(function() {
-                            batteryDirection = -1;
                             startBatterySimulation();
                         }, 10000); // 10 seconds for demo (would be 600000 for 10 minutes)
                         
